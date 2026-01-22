@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Script Hub | The Script & Executor Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="bg-glow"></div>
+    
+    <nav class="glass-nav">
+        <div class="logo">🚀 <span>ScriptHub</span></div>
+        <div class="nav-links">
+            <a href="#scripts" class="active">Scripts</a>
+            <a href="#executors">Executors</a>
+            <button id="upload-trigger" class="btn-primary">Upload Script</button>
+        </div>
+        <div id="user-info" class="user-pill hidden">
+            <span id="display-username"></span>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Welcome Hero -->
+        <section id="hero" class="hero-section">
+            <h1>Discover the Best Game Scripts</h1>
+            <p>The ultimate hub for script creators and players. No passwords, just scripts.</p>
+        </section>
+
+        <!-- Script Feed Section -->
+        <section id="scripts" class="content-section">
+            <div class="section-header">
+                <h2>Trending Scripts</h2>
+                <div class="filters">
+                    <!-- Future search/tags -->
+                </div>
+            </div>
+            
+            <div id="script-feed" class="script-grid">
+                <!-- Scripts will be injected here -->
+            </div>
+
+            <div class="load-more-container">
+                <button id="load-more" class="btn-secondary">More Scripts</button>
+            </div>
+        </section>
+
+        <!-- Executor Hub Section -->
+        <section id="executors" class="content-section hidden">
+            <div class="section-header">
+                <h2>Official Executors</h2>
+                <p>Curated list of official tools for all platforms.</p>
+            </div>
+            
+            <div class="executor-grid">
+                <!-- Executor Cards -->
+                <div class="executor-card glass">
+                    <div class="executor-header">
+                        <h3>Hydrogen</h3>
+                        <div class="platforms">
+                            <span class="platform-icon" title="Android">🤖</span>
+                            <span class="platform-icon" title="macOS">🍎</span>
+                        </div>
+                    </div>
+                    <p>Powerful mobile executor with a sleek interface.</p>
+                    <a href="https://hydrogen.sh" target="_blank" class="btn-download">Visit Official Site</a>
+                </div>
+
+                <div class="executor-card glass">
+                    <div class="executor-header">
+                        <h3>Fluxus</h3>
+                        <div class="platforms">
+                            <span class="platform-icon" title="Android">🤖</span>
+                            <span class="platform-icon" title="Windows">🪟</span>
+                        </div>
+                    </div>
+                    <p>Highly stable and feature-rich script executor.</p>
+                    <a href="https://fluxteam.net" target="_blank" class="btn-download">Visit Official Site</a>
+                </div>
+
+                <div class="executor-card glass">
+                    <div class="executor-header">
+                        <h3>Arceus X</h3>
+                        <div class="platforms">
+                            <span class="platform-icon" title="Android">🤖</span>
+                            <span class="platform-icon" title="iOS">📱</span>
+                        </div>
+                    </div>
+                    <p>The most popular mobile executor for global users.</p>
+                    <a href="https://spdmteam.com" target="_blank" class="btn-download">Visit Official Site</a>
+                </div>
+
+                <div class="executor-card glass">
+                    <div class="executor-header">
+                        <h3>Codex</h3>
+                        <div class="platforms">
+                            <span class="platform-icon" title="Android">🤖</span>
+                            <span class="platform-icon" title="iOS">📱</span>
+                        </div>
+                    </div>
+                    <p>High performance and regular updates for mobile.</p>
+                    <a href="https://codex.lol" target="_blank" class="btn-download">Visit Official Site</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Upload Modal -->
+    <div id="upload-modal" class="modal-overlay hidden">
+        <div class="modal-content glass">
+            <div class="modal-header">
+                <h3>Upload New Script</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <form id="upload-form">
+                <div class="form-group">
+                    <label>Unique Username</label>
+                    <input type="text" id="username-input" placeholder="e.g. ScriptGod99" required>
+                    <small>This will be your identity. Choose wisely!</small>
+                </div>
+                <div class="form-group">
+                    <label>Script Title</label>
+                    <input type="text" id="script-title" placeholder="Best Autofarm GUI" required>
+                </div>
+                <div class="form-group">
+                    <label>Game Name</label>
+                    <input type="text" id="game-name" placeholder="Blox Fruits" required>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="script-desc" rows="3" placeholder="Explain what the script does..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Script Code</label>
+                    <textarea id="script-code" class="code-area" rows="10" placeholder="Paste your Lua code here..." required></textarea>
+                </div>
+                <button type="submit" class="btn-primary full-width">Post Script 🚀</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Script Detail View Modal -->
+    <div id="detail-modal" class="modal-overlay hidden">
+        <div class="modal-content glass wide">
+            <div class="modal-header">
+                <h3 id="detail-title">Script Title</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="script-meta">
+                    <span id="detail-game" class="tag">Game</span>
+                    <span id="detail-user">By: User</span>
+                    <span id="detail-views">👁️ 0 views</span>
+                </div>
+                <p id="detail-desc">Description goes here.</p>
+                <div class="code-container">
+                    <pre><code id="detail-code"></code></pre>
+                    <button id="copy-script" class="btn-copy">Copy Code</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
